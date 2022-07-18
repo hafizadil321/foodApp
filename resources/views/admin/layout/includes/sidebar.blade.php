@@ -76,7 +76,7 @@
     </div>
 
     <li class="nav-item ">
-        <a class="nav-link" href="foodcategories.php">
+        <a class="nav-link" href="{{ route('categories.index') }}">
             <i class="fas fa-fw fa-apple-alt"></i>
             <span>Food Categories</span>
         </a>
