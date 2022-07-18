@@ -33,11 +33,11 @@
             <td>{{ $category->name }}</td>
             <td>{{ $category->detail }}</td>
             <td>
-                <form action="{{ route('products.destroy',$product->id) }}" method="POST">
+                <form action="{{ route('categoriess.destroy',$category->id) }}" method="POST">
      
-                    <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('categoriess.show',$category->id) }}">Show</a>
       
-                    <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('categoriess.edit',$category->id) }}">Edit</a>
      
                     @csrf
                     @method('DELETE')
@@ -49,6 +49,6 @@
         @endforeach
     </table>
     
-    {!! $products->links() !!}
+    {!! $categories->links() !!}
         
 @endsection
