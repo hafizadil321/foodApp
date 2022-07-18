@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Admin\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +25,9 @@ Auth::routes();
 
   
 Route::resource('categories', CategoryController::class);
+Route::get('/', [HomeController::class, 'adminLoginForm']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => ['auth', 'role:superadministrator']], function(){
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('/dashboard');
+});

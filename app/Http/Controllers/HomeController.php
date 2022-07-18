@@ -25,4 +25,16 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function adminLoginForm()
+    {
+        if (Auth::check()){
+            if(auth()->user()->hasRole('superadministrator'))
+            {
+                return redirect('/dashboard');
+            }
+        }
+        $title = 'Admin Login';
+        return view('auth.login', compact('title'));
+    }
 }
