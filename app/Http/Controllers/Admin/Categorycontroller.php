@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use File;
 
 class CategoryController extends Controller
 {
@@ -74,7 +75,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('categories.show',compact('category'));
+        return view('admin.pages.categories.show',compact('category'));
     }
 
     /**
@@ -85,7 +86,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('categories.edit',compact('category'));
+        return view('admin.pages.categories.edit',compact('category'));
     }
 
     /**
@@ -95,22 +96,32 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
         $request->validate([
             'name' => 'required',
-            'detail' => 'required'
+            'color' => 'required'
         ]);
   
         $input = $request->all();
   
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/catogory';
+            $destinationPath = 'image/category_image';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
+            File::delete($destinationPath.'/'.$category->image);
         }else{
             unset($input['image']);
+        }
+        if ($image = $request->file('cat_icon')) {
+            $destinationPath = 'image/category_icon';
+            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profileImage);
+            $input['cat_icon'] = "$profileImage";
+            File::delete($destinationPath.'/'.$category->cat_icon);
+        }else{
+            unset($input['cat_icon']);
         }
           
         $category->update($input);
@@ -125,7 +136,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
         $category->delete();
      

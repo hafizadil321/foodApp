@@ -107,10 +107,15 @@
                         </td>
                         <td>{{ $category->color }}</td>
                         <td class="text-center">
-                           <a href="editfoodcat.php?foodcatid=-N4m3c_Zvo6e_se6M1qi" class="btn btn-info"> Edit </a>
+                           <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-info"> Edit </a>
                         </td>
-                        <td class="text-center "> 
-                           <input type="text" hidden="" value="-N4m3c_Zvo6e_se6M1qi" class="catname">  <button type="button" value="1655476221332" class="btn btn-danger btn-delete">Delete </button>
+                        <td class="text-center ">
+                           <form action="{{ route('categories.destroy',$category->id) }}" method="POST">
+                                 @csrf
+                                 @method('DELETE')
+                            
+                              <button type="submit" value="1655476221332" onclick="return confirm('Are you sure you would like to delete this Category?');" class="btn btn-danger btn-delete">Delete </button>
+                           </form>
                         </td>
                      </tr>
                      @endforeach
@@ -120,71 +125,4 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- <div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Add New Product</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('categories.index') }}"> Back</a>
-        </div>
-    </div>
-</div>
-     
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-     
-<form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
-    @csrf
-    
-     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="Name">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Detail:</strong>
-                <textarea class="form-control" style="height:150px" name="detail" placeholder="Detail"></textarea>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Image:</strong>
-                <input type="file" name="image" class="form-control" placeholder="image">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-     
-</form> -->
 @endsection
