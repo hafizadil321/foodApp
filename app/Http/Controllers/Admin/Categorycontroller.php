@@ -49,13 +49,13 @@ class CategoryController extends Controller
         $input = $request->all();
   
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/category_image';
+            $destinationPath = 'images/category_image';
             $catImage = date('YmdHis') . "_image." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $catImage);
             $input['image'] = "$catImage";
         }
         if ($image = $request->file('cat_icon')) {
-            $destinationPath = 'image/category_icon';
+            $destinationPath = 'images/category_icon';
             $catIcon = date('YmdHis') . "_icon." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $catIcon);
             $input['cat_icon'] = "$catIcon";
@@ -106,8 +106,8 @@ class CategoryController extends Controller
         $input = $request->all();
   
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/category_image';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $destinationPath = 'images/category_image';
+            $profileImage = date('YmdHis') . "_image." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
             File::delete($destinationPath.'/'.$category->image);
@@ -115,8 +115,8 @@ class CategoryController extends Controller
             unset($input['image']);
         }
         if ($image = $request->file('cat_icon')) {
-            $destinationPath = 'image/category_icon';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $destinationPath = 'images/category_icon';
+            $profileImage = date('YmdHis') . "_icon." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['cat_icon'] = "$profileImage";
             File::delete($destinationPath.'/'.$category->cat_icon);
