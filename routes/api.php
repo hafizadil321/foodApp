@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\API\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group( function () {
     Route::get('getCategories', [CategoryController::class, 'get_categories']);
     Route::post('getProductsByCategory', [ProductController::class, 'get_product_by_category']);
+    Route::post('createOrder', [OrderController::class, 'create_order']);
 });
