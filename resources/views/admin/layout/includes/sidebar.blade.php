@@ -21,6 +21,12 @@
             <span>Restaurant</span>
         </a>
     </li>
+    <li class="nav-item ">
+        <a class="nav-link" href="{{ route('branches.index') }}">
+            <i class="fas fa-code-branch"></i>
+            <span>Branches</span>
+        </a>
+    </li>
     <hr class="sidebar-divider">
     <div class="sidebar-heading">
         Orders
@@ -83,9 +89,9 @@
     </li>
   
     <li class="nav-item ">
-        <a class="nav-link" href="products.php">
+        <a class="nav-link" href="{{ route('products.index') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Products</span>\
+            <span>Products</span>
         </a>
     </li>
     <li class="nav-item ">

@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BranchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,4 +36,6 @@ Route::group(['middleware' => ['auth', 'role:superadministrator']], function(){
     Route::get('/dashboard', [AdminController::class, 'index'])->name('/dashboard');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('branches', BranchController::class);
+    Route::get('branch_products/{id}', [BranchController::class, 'branch_products']);
 });

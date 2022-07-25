@@ -100,10 +100,10 @@
                         <td>{{ $category->id }}</td>
                         <td>{{ $category->name }}</td>
                         <td>
-                           <img src="{{ asset('image/category_image') }}/{{ $category->image }}" alt="" height="50px">
+                           <img src="{{ asset('images/category_image') }}/{{ $category->image }}" alt="" height="50px">
                         </td>
                         <td>
-                           <img src="{{ asset('image/category_icon') }}/{{ $category->cat_icon }}" alt="" height="50px">
+                           <img src="{{ asset('images/category_icon') }}/{{ $category->cat_icon }}" alt="" height="50px">
                         </td>
                         <td>{{ $category->color }}</td>
                         <td class="text-center">
