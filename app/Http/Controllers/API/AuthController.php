@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use File;
 use App\Models\User;
    
 class AuthController extends BaseController
@@ -46,6 +47,29 @@ class AuthController extends BaseController
         $success['name'] =  $user->name;
    
         return $this->sendResponse($success, 'User created successfully.');
+    }
+    public function update_profile(Request $request)
+    {
+        // echo "<pre>"; print_r($request->all()); exit('poikkk');
+        $user = User::where('id', auth()->user()->id)->first();
+        if ($user) {
+            if (isset($request->name))
+                $user->name = $request->name;
+            if (isset($request->phone))
+                $user->phone = $request->phone;
+            if($request->hasFile('image')){ 
+                $destinationPath = 'images/profile_image';
+                File::delete($destinationPath.'/'.$user->product_thumbnail);
+                $imageName = time().'.'.$request->image->extension();
+                $request->image->move(public_path('images/profile_image'), $imageName);
+            }
+            if(isset($imageName))
+                $user->image = $imageName;
+            $user->save();
+            return $this->sendResponse($user, 'User Updated Successfully.');
+        }else{
+            return $this->sendError('Error', 'No User Found.');
+        }
     }
    
 }

@@ -27,6 +27,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->group( function () {
+    Route::post('updateProfile', [AuthController::class, 'update_profile']);
+
+
     Route::get('getCategories', [CategoryController::class, 'get_categories']);
     Route::post('getProductsByCategory', [ProductController::class, 'get_product_by_category']);
     Route::post('createOrder', [OrderController::class, 'create_order']);
