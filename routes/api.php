@@ -21,6 +21,10 @@ use App\Http\Controllers\API\OrderController;
 
 Route::post('login', [AuthController::class, 'signin']);
 Route::post('register', [AuthController::class, 'signup']);
+Route::post('forgotPassword', [AuthController::class, 'forgot_password']);
+Route::post('verifyOtp', [AuthController::class, 'verify_otp']);
+Route::post('resetPassword', [AuthController::class, 'reset_password']);
+Route::get('send-email', [AuthController::class, 'sendmail']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use Validator;
 use File;
 use App\Models\User;
+use Mail;
+use App\Mail\NotifyMail;
    
 class AuthController extends BaseController
 {
@@ -71,5 +73,83 @@ class AuthController extends BaseController
             return $this->sendError('Error', 'No User Found.');
         }
     }
-   
+    public function forgot_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), $code=200);       
+        }else{
+            // dd('test');
+            $user = User::where('email', $request->email)->first();
+            if ($user) {
+                $randomNumber = random_int(1000, 9999);
+                $details = [
+                    'title' => 'Mail from Call Your Support',
+                    'code' => $randomNumber
+                ];
+                Mail::to($user->email)->send(new NotifyMail($details));
+                // \Mail::to($user->email)->send(new \App\Mail\MyTestMail($details));
+                User::where('id', $user->id)->update(array('otp' => $randomNumber));
+                return $this->sendResponse(['forgotPassword' => $user], 'forgotPassword email send successfully');
+            }else{
+                $message = 'No User found against this email';
+                $error = 'No User found against this email';
+                return $this->sendError($message, ['error'=>$error], $code=200);
+            }
+        }
+    }
+    public function verify_otp(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'otp' => 'required|numeric',
+            'email' => 'required',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), $code=200);       
+        }
+        $user = User::where('email', '=', $request->email)
+                        ->where('otp', '=', (int)$request->otp)
+                        ->first();
+        if ($user === null) {
+            $message = 'Your OTP is incorrect please resend email';
+            return $this->sendError($message, ['error'=>$message], $code=200);
+        }else{
+            return $this->sendResponse(['verifyOtp' => $user], 'Your OTP verify successfully');
+        }
+    }
+    public function reset_password(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if($validator->fails()){
+            return $this->sendError('Validation Error.', $validator->errors(), $code=200);       
+        }
+        $user = User::where('email', $request->email)->update(array('password' => bcrypt($request->password)));
+        if ($user) {
+            return $this->sendResponse(['resetPassword' => $user], 'Your password reset successfully');
+        }else{
+            $message = 'Something went wrong';
+            return $this->sendError($message, ['error'=>$message], $code=200);
+        }
+    }
+    
+    public function sendmail()
+    {
+        $details = [
+                    'title' => 'Mail from Call Your Support',
+                    'code' => '1234'
+                ];
+        Mail::to('hafizadil431@gmail.com')->send(new NotifyMail($details));
+ 
+        if (Mail::failures()) {
+            return $this->sendError('Error', 'Sorry! Please try again latter.');
+        }else{
+            return $this->sendResponse('success', 'Great! Successfully send in your mail.');
+        }
+    }
 }
