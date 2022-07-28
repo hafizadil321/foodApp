@@ -64,15 +64,15 @@
 
     <!-- Nav Item - Classes -->
     <li class="nav-item ">
-        <a class="nav-link" href="users.php">
+        <a class="nav-link" href="{{ route('users.index') }}">
             <i class="fas fa-fw fa-users"></i>
             <span>All Users</span>
         </a>
     </li>
     <li class="nav-item ">
-        <a class="nav-link" href="drivers.php">
+        <a class="nav-link" href="{{ route('riders.index') }}">
             <i class="fas fa-fw fa-shopping-cart"></i>
-            <span>Drivers</span>
+            <span>Riders</span>
         </a>
     </li>
   

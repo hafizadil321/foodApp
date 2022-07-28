@@ -1,6 +1,12 @@
 @extends('admin.layout.main_layout')
 @section('content')
-<div class="container-fluid"> <a href="{{ route('products.create') }}" class="btn btn-block btn-info">Add New Product</a>
+<div class="container-fluid"> 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+    <a href="{{ route('products.create') }}" class="btn btn-block btn-info">Add New Product</a>
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">All Product</h1>
     <!-- DataTales Example -->
