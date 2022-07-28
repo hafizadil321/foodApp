@@ -2,6 +2,16 @@
 @section('content')
 <!-- Begin Page Content -->
     <div class="container-fluid">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- Page Heading -->
         <div class="">
             <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">

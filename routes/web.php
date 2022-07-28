@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\RiderController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,5 +39,7 @@ Route::group(['middleware' => ['auth', 'role:superadministrator']], function(){
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
     Route::resource('branches', BranchController::class);
+    Route::resource('riders', RiderController::class);
+    Route::resource('users', UserController::class);
     Route::get('branch_products/{id}', [BranchController::class, 'branch_products']);
 });
