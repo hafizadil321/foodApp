@@ -75,48 +75,26 @@
                   <thead>
                      <tr>
                         <th>ID</th>
-                        <th>Category Name</th>
-                        <th>Category Image</th>
-                        <th>Category Icon</th>
-                        <th>Color Code</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Billing Name</th>
+                        <th>Billing email</th>
+                        <th>Billing Address</th>
                      </tr>
                   </thead>
                   <tfoot>
                      <tr>
                         <th>ID</th>
-                        <th>Category Name</th>
-                        <th>Category Image</th>
-                        <th>Category Icon</th>
-                        <th>Color Code</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
+                        <th>Billing Name</th>
+                        <th>Billing email</th>
+                        <th>Billing Address</th>
                      </tr>
                   </tfoot>
                   <tbody id="tabledata">
-                     @foreach($categories as $category)
+                     @foreach($orders as $order)
                      <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>
-                           <img src="{{ asset('images/category_image') }}/{{ $category->image }}" alt="" height="50px">
-                        </td>
-                        <td>
-                           <img src="{{ asset('images/category_icon') }}/{{ $category->cat_icon }}" alt="" height="50px">
-                        </td>
-                        <td>{{ $category->color }}</td>
-                        <td class="text-center">
-                           <a href="{{ route('categories.edit',$category->id) }}" class="btn btn-info"> Edit </a>
-                        </td>
-                        <td class="text-center ">
-                           <form action="{{ route('categories.destroy',$category->id) }}" method="POST">
-                                 @csrf
-                                 @method('DELETE')
-                            
-                              <button type="submit" value="1655476221332" onclick="return confirm('Are you sure you would like to delete this Category?');" class="btn btn-danger btn-delete">Delete </button>
-                           </form>
-                        </td>
+                        <td>{{ $order->id }}</td>
+                        <td>{{ $order->billing_name }}</td>
+                        <td>{{ $order->billing_email }}</td>
+                        <td>{{ $order->billing_address }}</td>
                      </tr>
                      @endforeach
                   </tbody>
