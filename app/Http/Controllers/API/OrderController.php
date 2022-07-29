@@ -10,12 +10,18 @@ use App\Models\OrderProduct;
 
 class OrderController extends BaseController
 {
+    public function index()
+    {
+        $orders = Order::all();
+        return $this->sendResponse($orders, 'All Orders.');
+
+    }
     public function create_order(Request $request)
     {
         // echo "<pre>"; print_r($request->all()); exit('poikk');
-        $order = Order::with('products.category')->get();
+        // $order = Order::with('products.category')->get();
 
-        return $this->sendResponse($order, 'User created successfully.');
+        // return $this->sendResponse($order, 'User created successfully.');
         // echo "<pre>"; print_r($order); exit('poikk');
         $validator = Validator::make($request->all(), [
             'user_id' => 'required',
