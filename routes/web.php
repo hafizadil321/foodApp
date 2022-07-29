@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BranchController;
 use App\Http\Controllers\Admin\RiderController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,5 +42,6 @@ Route::group(['middleware' => ['auth', 'role:superadministrator']], function(){
     Route::resource('branches', BranchController::class);
     Route::resource('riders', RiderController::class);
     Route::resource('users', UserController::class);
+    Route::get('orders', [OrderController::class, 'index']);
     Route::get('branch_products/{id}', [BranchController::class, 'branch_products']);
 });
