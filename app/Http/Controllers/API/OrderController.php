@@ -50,6 +50,7 @@ class OrderController extends BaseController
             'billing_total' => $request->billing_total,
             'payment_gateway' => 'nothing',
             'payment_status' => '0',
+            'status' => '0',
         ]);
 
         foreach ($request->cart as $key => $cart) {
@@ -62,5 +63,25 @@ class OrderController extends BaseController
         }
    
         return $this->sendResponse($order, 'User created successfully.');
+    }
+
+    public function change_order_status(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required',
+            'status' => 'required',
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Error validation', $validator->errors());       
+        }
+        $order = Order::find($request->order_id);
+        if ($order) {
+            $order->status = $request->status;
+            $order->save();
+            return $this->sendResponse($order, 'Order status change successfully.');
+        }else{
+            return $this->sendError('No Order Found', 'No Order Found'); 
+        }
     }
 }

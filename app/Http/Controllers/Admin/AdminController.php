@@ -9,6 +9,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+        // dd('Migration');
         $title = 'Dashboard';
         return view('admin.pages.dashboard',compact('title'));
     }

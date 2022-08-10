@@ -45,3 +45,17 @@ Route::group(['middleware' => ['auth', 'role:superadministrator']], function(){
     Route::get('orders', [OrderController::class, 'index']);
     Route::get('branch_products/{id}', [BranchController::class, 'branch_products']);
 });
+
+
+
+
+Route::get('/clear-cache', function() {
+    Artisan::call('cache:clear');
+    return "Cache is cleared";
+});
+
+
+Route::get('/migration', function() {
+    Artisan::call('migrate');
+    return "Run Migration ";
+});
