@@ -47,7 +47,7 @@
                         <tr>
                             <td>{{ $product->id }}</td>
                             <td>
-                                <img src="/image/products/{{ $product->image }}" alt="" height="50px">
+                                <img src="/public/images/products/{{ $product->image }}" alt="" height="50px">
                             </td>
                             <td>{{ $product->name }}</td>
                             <td>{{ $product->category->name }}</td>

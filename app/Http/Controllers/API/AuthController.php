@@ -20,6 +20,9 @@ class AuthController extends BaseController
             $authUser = Auth::user(); 
             $success['token'] =  $authUser->createToken('MyAuthApp')->plainTextToken; 
             $success['name'] =  $authUser->name;
+            $success['email'] =  $authUser->email;
+            $success['phone'] =  $authUser->phone;
+            $success['image'] =  $authUser->image;
    
             return $this->sendResponse($success, 'User signed in');
         } 
@@ -49,6 +52,10 @@ class AuthController extends BaseController
         $user->attachRole('user');
         $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
         $success['name'] =  $user->name;
+        $success['email'] =  $user->email;
+        $success['phone'] =  $user->phone;
+        $success['phone'] =  $user->phone;
+        $success['image'] =  $user->image;
    
         return $this->sendResponse($success, 'User created successfully.');
     }

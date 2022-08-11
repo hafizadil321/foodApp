@@ -51,7 +51,7 @@ class ProductController extends Controller
         $input['price'] = 123;
         $input['no_of_serves'] = 3;
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/products/';
+            $destinationPath = 'public/images/products/';
             $productImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $productImage);
             $input['image'] = "$productImage";
@@ -109,7 +109,7 @@ class ProductController extends Controller
         $input = $request->all();
   
         if ($image = $request->file('image')) {
-            $destinationPath = 'image/products/';
+            $destinationPath = 'public/images/products/';
             $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $profileImage);
             $input['image'] = "$profileImage";
