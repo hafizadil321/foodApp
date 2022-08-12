@@ -8,6 +8,7 @@ use App\Http\Controllers\API\CategoryController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\BranchController;
+use App\Http\Controllers\API\RiderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,8 +43,14 @@ Route::middleware('auth:sanctum')->group( function () {
 
     Route::get('getOrders', [OrderController::class, 'index']);
     Route::post('changeOrderStatus', [OrderController::class, 'change_order_status']);
+    Route::post('assignOrder', [OrderController::class, 'assign_order']);
 
 
 
     Route::get('getBranches', [BranchController::class, 'index']);
+    
+
+    Route::get('getRiders', [RiderController::class, 'index']);
+
+
 });

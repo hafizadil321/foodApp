@@ -7,12 +7,13 @@ use Illuminate\Http\Request;
 use Validator;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\AssignOrder;
 
 class OrderController extends BaseController
 {
     public function index()
     {
-        $orders = Order::all();
+        $orders = Order::with('products')->get();
         return $this->sendResponse($orders, 'All Orders.');
 
     }
@@ -35,7 +36,7 @@ class OrderController extends BaseController
         if($validator->fails()){
             return $this->sendError('Error validation', $validator->errors());       
         }
-
+        // dd($request->cart);
         $order = Order::create([
             'user_id' => $request->user_id,
             'billing_name' => $request->billing_name,
@@ -51,6 +52,7 @@ class OrderController extends BaseController
             'payment_gateway' => 'nothing',
             'payment_status' => '0',
             'status' => '0',
+            'special_instruction' => $request->special_instruction,
         ]);
 
         foreach ($request->cart as $key => $cart) {
@@ -80,6 +82,27 @@ class OrderController extends BaseController
             $order->status = $request->status;
             $order->save();
             return $this->sendResponse($order, 'Order status change successfully.');
+        }else{
+            return $this->sendError('No Order Found', 'No Order Found'); 
+        }
+    }
+    public function assign_order(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => 'required',
+            'rider_id' => 'required',
+        ]);
+   
+        if($validator->fails()){
+            return $this->sendError('Error validation', $validator->errors());       
+        }
+        $order = Order::find($request->order_id);
+        if ($order) {
+            AssignOrder::create([
+                'order_id' => $request->order_id,
+                'rider_id' => $request->rider_id,
+            ]);
+            return $this->sendResponse($order, 'Order assign to rider.');
         }else{
             return $this->sendError('No Order Found', 'No Order Found'); 
         }
