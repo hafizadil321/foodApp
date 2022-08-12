@@ -107,4 +107,10 @@ class OrderController extends BaseController
             return $this->sendError('No Order Found', 'No Order Found'); 
         }
     }
+
+    public function get_user_orders()
+    {
+        $orders = Order::with('products')->where('user_id', auth()->user()->id)->get();
+        return $this->sendResponse($orders, 'All Orders.');
+    }
 }

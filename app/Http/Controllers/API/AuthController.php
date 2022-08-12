@@ -19,6 +19,7 @@ class AuthController extends BaseController
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
             $authUser = Auth::user(); 
             $success['token'] =  $authUser->createToken('MyAuthApp')->plainTextToken; 
+            $success['id'] =  $authUser->id;
             $success['name'] =  $authUser->name;
             $success['email'] =  $authUser->email;
             $success['phone'] =  $authUser->phone;
@@ -51,6 +52,7 @@ class AuthController extends BaseController
         
         $user->attachRole('user');
         $success['token'] =  $user->createToken('MyAuthApp')->plainTextToken;
+        $success['id'] =  $user->id;
         $success['name'] =  $user->name;
         $success['email'] =  $user->email;
         $success['phone'] =  $user->phone;

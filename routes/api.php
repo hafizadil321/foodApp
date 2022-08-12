@@ -46,6 +46,9 @@ Route::middleware('auth:sanctum')->group( function () {
     Route::post('assignOrder', [OrderController::class, 'assign_order']);
 
 
+    Route::get('getUserOrders', [OrderController::class, 'get_user_orders']);
+
+
 
     Route::get('getBranches', [BranchController::class, 'index']);
     
